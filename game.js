@@ -3,18 +3,21 @@ var numberOfGridSquares = 32;
 var gridSize;
 
 var selectedAutomaton = -1;
-var automatons = [{x:0, y:0}];
+var automatons = [
+    new Automaton(0, 0),
+];
 
 var walls = [
-    {x:15, y:15},
-    {x:15, y:16},
-    {x:16, y:15},
-    {x:16, y:16}
+    new Wall(15, 15),
+    new Wall(15, 16),
+    new Wall(16, 15),
+    new Wall(16, 16),
 ];
 
 function setup() {
 	var cnv = createCanvas(600, 600);
 	cnv.parent("cnv");
+    cnv.mouseClicked(mouseClickedOnCanvas);
     gridSize = width/32;
 }
 
@@ -25,18 +28,24 @@ function draw() {
     drawAutomatons();
 }
 
-function mouseClicked() {
+function mouseClickedOnCanvas() {
     var clickedGridX = parseInt(mouseX / gridSize);
     var clickedGridY = parseInt(mouseY / gridSize);
     if (checkClickedLocation(clickedGridX, clickedGridY) == "none") {
-        automatons.push({x:clickedGridX, y:clickedGridY});
+        automatons.push( new Automaton(clickedGridX, clickedGridY) );
+        selectAutomaton(automatons.length - 1);
     }
+}
+
+function selectAutomaton(n) {
+    selectedAutomaton = n;
+    loadAutomaton(automatons[n]);
 }
 
 function checkClickedLocation(x, y) {
     for (var i = 0; i < automatons.length; i++) {
         if (automatons[i].x == x && automatons[i].y == y) {
-            selectedAutomaton = i;
+            selectAutomaton(i);
             return "automaton";
         }
     }
