@@ -1,20 +1,37 @@
 <!Doctype HTML>
-<html>
+<html style="overflow:hidden;">
     <head>
+        <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+        <title>Automaton</title>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="game.js"></script>
 
         <style>
             body {
-                text-align: center;
-            }
-
-            canvas {
-                margin-top: 50px;
+                overflow:hidden;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 2%;
             }
         </style>
     </head>
     <body>
-
+        <div style="display: block; text-align: right; margin-top: 100px; margin-right: 50px;">
+			<p>EDITOR</p>
+			<p><textarea disabled cols="1" rows="32" style="overflow: none; text-align: right; resize: none;">1&#13;2&#13;3&#13;4&#13;5&#13;6&#13;7&#13;8&#13;9&#13;10&#13;11&#13;12&#13;13&#13;14&#13;15&#13;16&#13;17&#13;18&#13;19&#13;20&#13;21&#13;22&#13;23&#13;24&#13;25&#13;26&#13;27&#13;28&#13;29&#13;30&#13;31&#13;32</textarea><textarea id="code" onclick="edit()" cols="20" rows="32" style="overflow: none; resize: none;"></textarea><textarea id="assembled" disabled cols="8" rows="32" style="overflow: none; resize: none;"></textarea></p>
+            <p>I Register: <input id="iRegister" type="text" disabled></p>
+            <p>O Register: <input id="oRegister" type="text" disabled></p>
+            <p>F Register: <input id="fRegister" type="text" disabled></p>
+            <p style="text-align: center;">
+				<button onclick="assemble()">ASSEMBLE</button>
+				<button onclick="execute(0)">RUN</button>
+				<button onclick="reset()">RESET</button>
+				<a href="manual.pdf" target="_blank"><button>HELP</button></a>
+			</p>
+		</div>
+		<div id="cnv" style="text-align:center;"><h1>Automaton (Alpha 0.1)</h1></div>
     </body>
 </html>
