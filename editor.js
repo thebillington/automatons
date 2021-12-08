@@ -16,5 +16,14 @@ function loadAutomaton(automaton) {
     document.getElementById("pc").value = automaton.registers["pc"];
     document.getElementById("opcode").value = automaton.registers["opcode"];
     document.getElementById("operand").value = automaton.registers["operand"];
-    document.getElementById("code").value = automaton.instructions;
+
+    var instructions = "";
+    var machineCode = "";
+    for (var i = 0; i < automaton.instructions.length; i++) {
+        if (automaton.instructions[i] == '') continue;
+        instructions += `${automaton.instructions[i]}\n`;
+        machineCode += `${automaton.machineCode[i]}\n`;
+    }
+    document.getElementById("code").value = instructions;
+    document.getElementById("assembled").value = machineCode;
 }

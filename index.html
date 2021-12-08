@@ -30,13 +30,14 @@
             <p>
 				<button onclick="execute(0)">RUN</button>
 				<button onclick="reset()">RESET</button>
+				<button onclick="step()">STEP</button>
 				<a href="manual.pdf" target="_blank"><button>HELP</button></a>
 			</p>
             <p>Instructions</p>
-			<p><textarea id="instructions-editor" disabled cols="3" rows="256" style="overflow: hidden; text-align: right; resize: none;"></textarea><textarea id="code" onclick="edit()" cols="16" rows="256" style="overflow: hidden; resize: none;"></textarea><textarea id="assembled" disabled cols="12" rows="256" style="overflow: hidden; resize: none;"></textarea></p>
+			<p><textarea id="instructions-editor" disabled cols="3" rows="256" style="overflow: hidden; text-align: right; resize: none;"></textarea><textarea id="code" cols="16" rows="256" style="overflow: hidden; resize: none;"></textarea><textarea id="assembled" disabled cols="12" rows="256" style="overflow: hidden; resize: none;"></textarea></p>
             <p><button onclick="assemble()">ASSEMBLE</button></p>
             <p>RAM</p>
-			<p><textarea id="ram-editor" disabled cols="3" rows="256" style="overflow: hidden; text-align: right; resize: none;"></textarea><textarea id="ram" onclick="edit()" cols="31" rows="256" style="overflow: hidden; resize: none;" disabled></textarea></p>
+			<p><textarea id="ram-editor" disabled cols="3" rows="256" style="overflow: hidden; text-align: right; resize: none;"></textarea><textarea id="ram" cols="31" rows="256" style="overflow: hidden; resize: none;" disabled></textarea></p>
 		</div>
 		<div id="cnv" style="text-align:center;"><h1>Automaton (Alpha 0.1)</h1></div>
     </body>

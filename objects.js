@@ -21,6 +21,8 @@ class Automaton {
             "operand": "00000000"
         };
 
-        this.instructions = "";
+        this.instructions = [];
+        this.machineCode = Array(256).fill('000000000000');;
+        this.ram = Array(256).fill('00000000');
     }
 }
