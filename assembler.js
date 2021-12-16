@@ -80,7 +80,8 @@ const registerMap = {
 };
 
 function assemble() {
-    var machineCode = Array(256).fill('000000000000');;
+    var machineCode = Array(256).fill('000000000000');
+    var ram = Array(256).fill('00000000');
     var input = document.getElementById("code").value.split("\n");
     var hasErrors = false;
     var error = "";
@@ -117,6 +118,7 @@ function assemble() {
                         break;
                     } else {
                         machineCode[i] = opcodesToMachineCode[opcode] + binaryString;
+                        ram[i] = binaryString;
                     }
                 } else if (operand[0] == "#") {
                     var hexString = "";
@@ -130,6 +132,7 @@ function assemble() {
                         break;
                     } else {
                         machineCode[i] = opcodesToMachineCode[opcode] + hexToBinary[hexString[0]] + hexToBinary[hexString[1]];
+                        ram[i] = hexToBinary[hexString[0]] + hexToBinary[hexString[1]];
                     }
                 } else {
                     error = `ERROR ON LINE ${i + 1}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
@@ -181,7 +184,7 @@ function assemble() {
     if (!hasErrors) {
         automatons[selectedAutomaton].instructions = document.getElementById("code").value.split("\n");
         automatons[selectedAutomaton].machineCode = machineCode;
-        console.log(machineCode);
+        automatons[selectedAutomaton].ram = ram;
         loadAutomaton(automatons[selectedAutomaton]);
     } else {
         console.log(error);

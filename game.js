@@ -19,6 +19,7 @@ function setup() {
 	cnv.parent("cnv");
     cnv.mouseClicked(mouseClickedOnCanvas);
     gridSize = width/32;
+    selectAutomaton(0);
 }
 
 function draw() {
@@ -26,6 +27,14 @@ function draw() {
     drawGrid();
     drawWalls();
     drawAutomatons();
+}
+
+function step() {
+    for (var i = 0; i < automatons.length; i++) {
+        automatons[i].fetchDecode();
+        automatons[i].execute();
+    }
+    loadAutomaton(automatons[selectedAutomaton]);
 }
 
 function mouseClickedOnCanvas() {
