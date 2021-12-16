@@ -27,6 +27,7 @@ function loadAutomaton(automaton) {
     document.getElementById("code").value = instructions;
     document.getElementById("assembled").value = machineCode;
 
+    automaton.updateRegisters();
     var ram = "";
     for (var i = 0; i < automaton.ram.length; i++) {
         ram += `${automaton.ram[i]}\n`;
