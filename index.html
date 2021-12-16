@@ -22,20 +22,20 @@
         </style>
     </head>
     <body onload="loadLineNumbers()">
-        <div style="display: block; text-align: right; margin-top: 100px; margin-right: 50px; height: 600px; overflow-y: auto;">
-            <p>A: <input id="a" type="text" disabled> B: <input id="b" type="text" disabled></p>
-            <p>C: <input id="c" type="text" disabled> F: <input id="f" type="text" disabled></p>
-            <p>HL: <input id="hl" type="text" disabled> PC: <input id="pc" type="text" disabled></p>
-            <p>Opcode: <input id="opcode" type="text" disabled> Operand: <input id="operand" type="text" disabled></p>
-            <p>
+        <div style="display: block; text-align: right; margin-top: 100px; margin-right: 50px; height: 600px; overflow-y: auto; position: relative;">
+            <p style="position: fixed; background-color: green; transform: translateY(-100%);">
+                <button onclick="assemble()">ASSEMBLE</button>
 				<button onclick="execute(0)">RUN</button>
 				<button onclick="reset()">RESET</button>
 				<button onclick="step()">STEP</button>
 				<a href="manual.pdf" target="_blank"><button>HELP</button></a>
 			</p>
+            <p style="margin-top: 30px;">A: <input id="a" type="text" disabled> B: <input id="b" type="text" disabled></p>
+            <p>C: <input id="c" type="text" disabled> F: <input id="f" type="text" disabled></p>
+            <p>HL: <input id="hl" type="text" disabled> PC: <input id="pc" type="text" disabled></p>
+            <p>Opcode: <input id="opcode" type="text" disabled> Operand: <input id="operand" type="text" disabled></p>
             <p>Instructions</p>
 			<p><textarea id="instructions-editor" disabled cols="3" rows="256" style="overflow: hidden; text-align: right; resize: none;"></textarea><textarea id="code" cols="16" rows="256" style="overflow: hidden; resize: none;"></textarea><textarea id="assembled" disabled cols="12" rows="256" style="overflow: hidden; resize: none;"></textarea></p>
-            <p><button onclick="assemble()">ASSEMBLE</button></p>
             <p>RAM</p>
 			<p><textarea id="ram-editor" disabled cols="3" rows="256" style="overflow: hidden; text-align: right; resize: none;"></textarea><textarea id="ram" cols="31" rows="256" style="overflow: hidden; resize: none;" disabled></textarea></p>
 		</div>

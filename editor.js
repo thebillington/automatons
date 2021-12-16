@@ -1,6 +1,6 @@
 function loadLineNumbers() {
     var nums = "";
-    for (var i = 1; i <= 256; i++) {
+    for (var i = 0; i < 256; i++) {
         nums += `${i}\n`;
     }
     document.getElementById("instructions-editor").value = nums;

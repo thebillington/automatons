@@ -14,11 +14,10 @@ const validOpcodes = [
     "XOR",
     "JMP",
     "BRA",
-    "JP",
-    "BRP",
     "JZ",
     "BRZ",
-    "CLF"
+    "LSL",
+    "LSR"
 ];
 
 const opcodesToMachineCode = {
@@ -37,11 +36,10 @@ const opcodesToMachineCode = {
     "XOR":"1011",
     "JMP":"1100",
     "BRA":"1100",
-    "JP":"1101",
-    "BRP":"1101",
-    "JZ":"1110",
-    "BRZ":"1110",
-    "CLF":"1111"
+    "JZ":"1101",
+    "BRZ":"1101",
+    "LSL":"1110",
+    "LSR":"1111"
 };
 
 const hexToBinary = {
@@ -61,6 +59,24 @@ const hexToBinary = {
     "D":"1101",
     "E":"1110",
     "F":"1111"
+};
+
+const validRegisters = [
+    "A",
+    "B",
+    "C",
+    "HL",
+    "[HL]"
+];
+
+const registerMap = {
+    "A":"11110111",
+    "B":"11111000",
+    "C":"11111001",
+    "F":"11111010",
+    "HL":"11111011",
+    "PC":"11111100",
+    "[HL]":"11111101"
 };
 
 function assemble() {
@@ -85,7 +101,7 @@ function assemble() {
         var opcode = components[0];
         var operand = components[1];
         if (validOpcodes.includes(opcode)) {
-            if (opcode == "NOP" || opcode == "CLF" || opcode == "PUSH" || opcode == "POP") {
+            if (opcode == "NOP" || opcode == "PUSH" || opcode == "POP") {
                 machineCode[i] = opcodesToMachineCode[opcode] + "00000000";
                 continue;
             } else if (opcode == "DAT") {
@@ -94,7 +110,6 @@ function assemble() {
                     for (var j = 1; j < operand.length; j++) {
                         binaryString += operand[j];
                     }
-                    console.log(binaryString);
                     if (!RegExp("[01]{8}").test(binaryString)) {
                         error = `ERROR ON LINE ${i + 1}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                         hasErrors = true;
@@ -118,6 +133,41 @@ function assemble() {
                     }
                 } else {
                     error = `ERROR ON LINE ${i + 1}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                    hasErrors = true;
+                    errorLine = i;
+                    break;
+                }
+            } else {
+                if (validRegisters.includes(operand.toUpperCase())) {
+                    machineCode[i] = opcodesToMachineCode[opcode] + registerMap[operand.toUpperCase()];
+                } else if (operand[0]  == "%") {
+                    var binaryString = "";
+                    for (var j = 1; j < operand.length; j++) {
+                        binaryString += operand[j];
+                    }
+                    if (!RegExp("[01]{8}").test(binaryString)) {
+                        error = `ERROR ON LINE ${i + 1}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                        hasErrors = true;
+                        errorLine = i;
+                        break;
+                    } else {
+                        machineCode[i] = opcodesToMachineCode[opcode] + binaryString;
+                    }
+                } else if (operand[0] == "#") {
+                    var hexString = "";
+                    for (var j = 1; j < operand.length; j++) {
+                        hexString += operand[j];
+                    }
+                    if (!RegExp("[0123456789ABCDEF]{2}").test(hexString)) {
+                        error = `ERROR ON LINE ${i + 1}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                        hasErrors = true;
+                        errorLine = i;
+                        break;
+                    } else {
+                        machineCode[i] = opcodesToMachineCode[opcode] + hexToBinary[hexString[0]] + hexToBinary[hexString[1]];
+                    }
+                } else {
+                    error = `ERROR ON LINE ${i + 1}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                     hasErrors = true;
                     errorLine = i;
                     break;
