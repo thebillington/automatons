@@ -130,24 +130,10 @@ class Automaton {
         } else if (this.registers["opcode"] == "1011") { // XOR
             
         } else if (this.registers["opcode"] == "1100") { // JMP
-            if (validRegisterMemoryMap.includes(this.registers["operand"])) {
-                this.registers["pc"] = this.registers[memoryRegisterMap[this.registers["operand"]]];
-            } else {
-                if (binaryStringToDenary(this.registers["operand"]) > 253) {
-                    this.registers["operand"] = this.registers["hl"];
-                }
-                this.registers["pc"] = this.ram[binaryStringToDenary(this.registers["operand"])];
-            }
+            this.registers["pc"] = this.registers["operand"];
         } else if (this.registers["opcode"] == "1101") { // JZ
             if (this.registers["a"] == "00000000") {
-                if (validRegisterMemoryMap.includes(this.registers["operand"])) {
-                    this.registers["pc"] = this.registers[memoryRegisterMap[this.registers["operand"]]];
-                } else {
-                    if (binaryStringToDenary(this.registers["operand"]) > 253) {
-                        this.registers["operand"] = this.registers["hl"];
-                    }
-                    this.registers["pc"] = this.ram[binaryStringToDenary(this.registers["operand"])];
-                }
+                this.registers["pc"] = this.registers["operand"];
             }
         } else if (this.registers["opcode"] == "1110") { // LSL
             

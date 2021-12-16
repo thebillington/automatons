@@ -94,7 +94,7 @@ function assemble() {
         }
         var components = input[i].split(" ");
         if (components.length != 1 && components.length != 2) {
-            error = `ERROR ON LINE ${i + 1}`;
+            error = `ERROR ON LINE ${i}`;
             hasErrors = true;
             errorLine = i;
             break;
@@ -112,7 +112,7 @@ function assemble() {
                         binaryString += operand[j];
                     }
                     if (!RegExp("[01]{8}").test(binaryString)) {
-                        error = `ERROR ON LINE ${i + 1}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                        error = `ERROR ON LINE ${i}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                         hasErrors = true;
                         errorLine = i;
                         break;
@@ -126,7 +126,7 @@ function assemble() {
                         hexString += operand[j];
                     }
                     if (!RegExp("[0123456789ABCDEF]{2}").test(hexString)) {
-                        error = `ERROR ON LINE ${i + 1}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                        error = `ERROR ON LINE ${i}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                         hasErrors = true;
                         errorLine = i;
                         break;
@@ -135,7 +135,7 @@ function assemble() {
                         ram[i] = hexToBinary[hexString[0]] + hexToBinary[hexString[1]];
                     }
                 } else {
-                    error = `ERROR ON LINE ${i + 1}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                    error = `ERROR ON LINE ${i}: Provided data must be 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                     hasErrors = true;
                     errorLine = i;
                     break;
@@ -149,7 +149,7 @@ function assemble() {
                         binaryString += operand[j];
                     }
                     if (!RegExp("[01]{8}").test(binaryString)) {
-                        error = `ERROR ON LINE ${i + 1}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                        error = `ERROR ON LINE ${i}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                         hasErrors = true;
                         errorLine = i;
                         break;
@@ -162,7 +162,7 @@ function assemble() {
                         hexString += operand[j];
                     }
                     if (!RegExp("[0123456789ABCDEF]{2}").test(hexString)) {
-                        error = `ERROR ON LINE ${i + 1}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                        error = `ERROR ON LINE ${i}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                         hasErrors = true;
                         errorLine = i;
                         break;
@@ -170,14 +170,14 @@ function assemble() {
                         machineCode[i] = opcodesToMachineCode[opcode] + hexToBinary[hexString[0]] + hexToBinary[hexString[1]];
                     }
                 } else {
-                    error = `ERROR ON LINE ${i + 1}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
+                    error = `ERROR ON LINE ${i}: Provided data must be a register (B,C,HL,[HL]), 8-bit Binary (e.g %00110010) or 2 digit Hex (e.g #7F)`;
                     hasErrors = true;
                     errorLine = i;
                     break;
                 }
             }
         } else {
-            error = `ERROR ON LINE ${i + 1}: ${opcode} is not a valid OPCODE`;
+            error = `ERROR ON LINE ${i}: ${opcode} is not a valid OPCODE`;
             hasErrors = true;
         }
     }
